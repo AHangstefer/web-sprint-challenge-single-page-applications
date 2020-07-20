@@ -15,10 +15,10 @@ export default function PizzaForm(){
         beef:"",
         onion:"",
         ham:"",
-        instructions:"",
+        instructions:""
     };
 
-    const [formState, setFromState] = useState(defaultState);
+    const [formState, setFormState] = useState(defaultState);
     const [errors, setErrors] =useState(defaultState);
 
     const formSchema = yup.object().shape({
@@ -45,18 +45,19 @@ export default function PizzaForm(){
     useEffect(() =>{
         formSchema.isValid(formState).then(valid =>{
             console.log("valid?", valid);
-            setIsButtonDisabled(!valid);
+            setIsButtonDisabled(valid);
         });
     }, [formState]);
+    console.log(formState);
 
     const formSubmit = e =>{
         e.preventDefault();
-        console.log ("form submitted!");
+        console.log ("form submitted!")
         axios
         .post("https://reqres.in/api/users", formState)
-        .then(response =>{
+        .then(response => {
             setPost(response.data);
-            setFromState(defaultState);
+            setFormState(defaultState);
         })
         .catch(err => console.log(err.response));
     };
@@ -71,7 +72,7 @@ export default function PizzaForm(){
             [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
         };
         validateChange(e)
-        setFromState(newFormData);
+        setFormState(newFormData);
         console.log(formState);
     };
 
@@ -89,6 +90,7 @@ export default function PizzaForm(){
                  value={formState.name} 
                  />
             </label>
+            {errors.name.length >0 ? <p className="error">{errors.name}</p> : null}
 
             <label htmlFor = "size">
                 Size
@@ -124,17 +126,21 @@ export default function PizzaForm(){
 
 
             <label htmlFor = "instructions">
-            Instructions
             <textarea name = "instructions" onChange = {inputChange} value={formState.instructions} />
+            Instructions
             </label>
 
-            <button type="submit" id ="submit">
+            <button disabled={isButtonDisabled} type="submit" id ="submit">
                 Submit
             </button>
+
+            <pre>{JSON.stringify(post,null,2)}</pre>
+            
+            
 
 
         </form>
 
 
-    )
-}
+    );
+};
