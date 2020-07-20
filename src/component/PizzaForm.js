@@ -58,9 +58,12 @@ export default function PizzaForm(){
         .then(response => {
             setPost(response.data);
             setFormState(defaultState);
+        
         })
         .catch(err => console.log(err.response));
     };
+
+    console.log(setFormState);
 
     const inputChange = e => {
         console.log ("input changed", e.target.value);
@@ -75,9 +78,8 @@ export default function PizzaForm(){
         setFormState(newFormData);
         console.log(formState);
     };
-
-
-
+  
+    
 
 
     return(
@@ -87,7 +89,7 @@ export default function PizzaForm(){
                 Name
                 <input id="name" type="text" name="name" data-cy="name"
                  onChange={inputChange} 
-                 value={formState.name} 
+                 value={formState.name}
                  />
             </label>
             {errors.name.length >0 ? <p className="error">{errors.name}</p> : null}
@@ -104,22 +106,22 @@ export default function PizzaForm(){
             </label>
 
 
-            <label htmlFor = "olive" className="olive">
+            <label htmlFor = "olive" className="olive" data-cy="olive">
                 <input type="checkbox" name="olive" checked={formState.olive} onChange = {inputChange}/>
                 Olives
             </label>
 
-            <label htmlFor = "beef" className="beef">
+            <label htmlFor = "beef" className="beef" data-cy='beef'>
                  <input type="checkbox" name="beef" checked={formState.beef} onChange = {inputChange}/>
                  Beef
             </label>
 
-            <label htmlFor = "onion" className="onion">
+            <label htmlFor = "onion" className="onion" data-cy='onion'>
                 <input type="checkbox" name="onion" checked={formState.onion} onChange = {inputChange}/>
                 Onions
             </label>
 
-            <label htmlFor = "ham" className="ham">
+            <label htmlFor = "ham" className="ham" data-cy='ham'>
                 <input type="checkbox" name="ham" checked={formState.ham} onChange = {inputChange}/>
                 Ham
             </label>
