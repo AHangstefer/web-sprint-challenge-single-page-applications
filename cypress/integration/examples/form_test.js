@@ -5,6 +5,11 @@ describe('form test', ()=>{
         cy.get('button#submit')
         .should('be.disabled')
 
+        const name= "Anna Davis"
+        cy.get('[for="name"]>input')
+        .type(name)
+        .should('have.value', name)
+
         const instructions = "Testing"
         cy.get('textarea')
         .type(instructions)
@@ -25,6 +30,8 @@ describe('form test', ()=>{
         cy.get('[data-cy="ham"]> input')
         .click()
         .should('have.checked', true)
+
+        
 
         
 

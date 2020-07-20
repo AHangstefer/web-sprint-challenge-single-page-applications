@@ -133,9 +133,10 @@ export default function PizzaForm(){
             </label>
 
             <button disabled={isButtonDisabled} type="submit" id ="submit">
-                Submit
+                Add to Order
             </button>
 
+            <pre>{JSON.stringify(formState,null,2)}</pre>
             <pre>{JSON.stringify(post,null,2)}</pre>
             
             
