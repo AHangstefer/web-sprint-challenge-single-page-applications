@@ -5,7 +5,7 @@ import axios from "axios"
 
 export default function PizzaForm(){
 
-    const [post, setPost] = ([]);
+    const [post, setPost] = useState([]);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
     const defaultState = {
@@ -48,7 +48,7 @@ export default function PizzaForm(){
             setIsButtonDisabled(valid);
         });
     }, [formState]);
-    console.log(formState);
+    console.log("this is formState", post);
 
     const formSubmit = e =>{
         e.preventDefault();
@@ -56,18 +56,19 @@ export default function PizzaForm(){
         axios
         .post("https://reqres.in/api/users", formState)
         .then(response => {
-            setPost(response.data);
+            console.log(response)
+            setPost([...post, response.data]);
             setFormState(defaultState);
+            
         
         })
         .catch(err => console.log(err.response));
     };
 
-    console.log(setFormState);
+    //console.log(setFormState);
 
     const inputChange = e => {
         console.log ("input changed", e.target.value);
-        console.log (formState);
         e.persist()
 
         const newFormData = {
@@ -76,7 +77,6 @@ export default function PizzaForm(){
         };
         validateChange(e)
         setFormState(newFormData);
-        console.log(formState);
     };
   
     
